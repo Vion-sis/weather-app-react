@@ -12,6 +12,26 @@ function App() {
         <Form city="Tokyo" />
         <Forecast />
       </div>
+      <p>
+        This project is an {""}
+        <a
+          href="https://github.com/Vion-sis/weather-app-react"
+          target="_blank"
+          rel="noreferrer"
+          className="text-decoration-none"
+        >
+          opensource
+        </a>
+        , coded with ❤️ by {""}
+        <a
+          href="https://github.com/Vion-sis"
+          target="_blank"
+          rel="noreferrer"
+          className="text-decoration-none"
+        >
+          Viona
+        </a>
+      </p>
     </div>
   );
 }
