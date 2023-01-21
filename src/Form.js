@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import ReactAnimatedWeather from "react-animated-weather";
 import ClipLoader from "react-spinners/ClipLoader";
-import FormattedDate from "./FormattedDate";
+
+import WeatherInfo from "./weatherInfo";
 
 import "./Form.css";
 
 export default function Form(props) {
+  const [city, setCity] = useState(props.defaultCity);
   const [weather, setWeather] = useState("");
   const [loaded, setLoaded] = useState(false);
 
@@ -19,63 +21,47 @@ export default function Form(props) {
       humidity: response.data.main.humidity,
       wind: Math.round(response.data.wind.speed),
       date: new Date(response.data.dt * 1000),
+      city: response.data.name,
     });
+  }
+  function search() {
+    let apiKey = `4091b06da263484df848822445999498`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+
+  function updateCity(event) {
+    event.preventDefault();
+    setCity(event.target.value);
   }
 
   let form = (
-    <form className="mb-3 mt-0">
+    <form className="mb-3 mt-0" onSubmit={handleSubmit}>
       <input
         type="search"
         placeholder="Enter a city.."
         className="btn btn-light"
+        onChange={updateCity}
       />
       <input type="submit" value="search" className="btn btn-light ms-2" />
       <button className="ms-2 btn btn-warning">Current Location</button>
     </form>
-  );
-  let weatherDetails = (
-    <div>
-      <h3 className="mb-0"> New York, USA </h3>
-      <p className="mb-0">
-        <FormattedDate date={weather.date} />
-      </p>
-      <p className="text-capitalize">{weather.description}</p>
-      <div className="row mb-3">
-        <div className="col-6 text-start">
-          <div className="icon-temp">
-            <ReactAnimatedWeather
-              icon="CLOUDY"
-              color="#FFCA2B"
-              size={70}
-              animate={true}
-            />
-            <h2 className="fs-1 ms-3">
-              <span className="temperature">{weather.temperature}</span>{" "}
-              <small>°C</small>
-            </h2>
-          </div>
-        </div>
-        <div className="col-6">
-          <div>
-            <p className="mb-0"> Humidity: {weather.humidity}% </p>
-            <p className="mb-0"> Wind: {weather.wind}m/s</p>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 
   if (loaded) {
     return (
       <div className="Form ">
         {form}
-        {weatherDetails}
+        <WeatherInfo data={weather} />
       </div>
     );
   } else {
-    let apiKey = `4091b06da263484df848822445999498`;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
+    search();
     return (
       <ClipLoader
         color="#36d7b7"
