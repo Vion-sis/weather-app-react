@@ -1,7 +1,6 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
-import ClipLoader from "react-spinners/ClipLoader";
-import ReactAnimatedWeather from "react-animated-weather";
+import Icon from "./Icon";
 
 export default function WeatherInfo(props) {
   return (
@@ -14,12 +13,8 @@ export default function WeatherInfo(props) {
       <div className="row mb-3">
         <div className="col-6 text-start">
           <div className="icon-temp">
-            <ReactAnimatedWeather
-              icon="CLOUDY"
-              color="#FFCA2B"
-              size={70}
-              animate={true}
-            />
+            <Icon iconCode={props.data.icon} />
+
             <h2 className="fs-1 ms-3">
               <span className="temperature">{props.data.temperature}</span>{" "}
               <small>°C</small>

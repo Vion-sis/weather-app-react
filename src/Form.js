@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ReactAnimatedWeather from "react-animated-weather";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import WeatherInfo from "./weatherInfo";
@@ -22,6 +21,7 @@ export default function Form(props) {
       wind: Math.round(response.data.wind.speed),
       date: new Date(response.data.dt * 1000),
       city: response.data.name,
+      icon: response.data.weather[0].icon,
     });
   }
   function search() {
