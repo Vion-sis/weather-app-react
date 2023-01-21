@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import ReactAnimatedWeather from "react-animated-weather";
 import ClipLoader from "react-spinners/ClipLoader";
+import FormattedDate from "./FormattedDate";
 
 import "./Form.css";
 
@@ -17,7 +18,7 @@ export default function Form(props) {
       description: response.data.weather[0].description,
       humidity: response.data.main.humidity,
       wind: Math.round(response.data.wind.speed),
-      date: "Saturday 10:28 pm",
+      date: new Date(response.data.dt * 1000),
     });
   }
 
@@ -35,7 +36,9 @@ export default function Form(props) {
   let weatherDetails = (
     <div>
       <h3 className="mb-0"> New York, USA </h3>
-      <p className="mb-0">{weather.date}</p>
+      <p className="mb-0">
+        <FormattedDate date={weather.date} />
+      </p>
       <p className="text-capitalize">{weather.description}</p>
       <div className="row mb-3">
         <div className="col-6 text-start">
