@@ -5,7 +5,7 @@ export default function Forecast() {
   return (
     <div>
       <div className="row">
-        <div className="col-2">
+        <div className="col-2 text-center">
           <p>Sun</p>
           <p>
             <ReactAnimatedWeather
@@ -17,7 +17,7 @@ export default function Forecast() {
           </p>
           <p>9°</p>
         </div>
-        <div className="col-2">
+        <div className="col-2 text-center">
           <p>Sun</p>
           <p>
             <ReactAnimatedWeather
@@ -29,7 +29,7 @@ export default function Forecast() {
           </p>
           <p>9°</p>
         </div>
-        <div className="col-2">
+        <div className="col-2 text-center">
           <p>Sun</p>
           <p>
             <ReactAnimatedWeather
@@ -41,7 +41,7 @@ export default function Forecast() {
           </p>
           <p>9°</p>
         </div>
-        <div className="col-2">
+        <div className="col-2 text-center">
           <p>Sun</p>
           <p>
             <ReactAnimatedWeather
@@ -53,7 +53,7 @@ export default function Forecast() {
           </p>
           <p>9°</p>
         </div>
-        <div className="col-2">
+        <div className="col-2 text-center">
           <p>Sun</p>
           <p>
             <ReactAnimatedWeather
@@ -65,7 +65,7 @@ export default function Forecast() {
           </p>
           <p>9°</p>
         </div>
-        <div className="col-2">
+        <div className="col-2 text-center">
           <p>Sun</p>
           <p>
             <ReactAnimatedWeather
