@@ -12,9 +12,9 @@ export default function Form(props) {
   const [loaded, setLoaded] = useState(false);
 
   function handleResponse(response) {
-    console.log(response.data);
     setLoaded(true);
     setWeather({
+      coordinates: response.data.coord,
       temperature: Math.round(response.data.main.temp),
       description: response.data.weather[0].description,
       humidity: response.data.main.humidity,
@@ -63,12 +63,14 @@ export default function Form(props) {
   } else {
     search();
     return (
+      <div>
       <ClipLoader
         color="#36d7b7"
         loading={true}
         size={150}
         aria-label="FadeLoader"
       />
+      </div>
     );
   }
 }

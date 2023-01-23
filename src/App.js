@@ -2,14 +2,14 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Form from "./Form";
-import Forecast from "./Forecast";
+
 
 function App() {
   return (
     <div className="App">
       <div className="container">
         <Form defaultCity = "New York"/>
-        <Forecast />
+        
       </div>
       <p className="text-center">
         This project is an {""}
