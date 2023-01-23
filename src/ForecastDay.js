@@ -3,7 +3,7 @@ import Icon from "./Icon";
 
 export default function ForecastDay(props) {
   function day() {
-    let date = new Date(props.forecastData.day * 1000);
+    let date = new Date(props.forecastData.dt * 1000);
     let day = date.getDay();
 
     let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -14,11 +14,11 @@ export default function ForecastDay(props) {
     <div>
       <p>{day()}</p>
       <div>
-        <Icon iconCode="10d" size={55} />
+        <Icon iconCode={props.forecastData.weather[0].icon} size={55} />
       </div>
       <p>
-        {props.forecastData.minTemperature}°{" "}
-        <strong>{props.forecastData.maxTemperature}°</strong>
+        {Math.round(props.forecastData.temp.min)}°{" "}
+        <strong>{Math.round(props.forecastData.temp.max)}°</strong>
       </p>
     </div>
   );

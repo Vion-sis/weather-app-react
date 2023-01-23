@@ -7,11 +7,7 @@ export default function Forecast(props) {
   const [ready, setReady] = useState("false");
   const [forecastData, setForecastData] = useState("false");
   function showForecastWeather(response) {
-    setForecastData({
-      minTemperature: Math.round(response.data.daily[0].temp.min),
-      maxTemperature: Math.round(response.data.daily[0].temp.max),
-      day:response.data.daily[0].dt,
-    });
+    setForecastData(response.data.daily);
     setReady("true");
   }
 
@@ -19,9 +15,15 @@ export default function Forecast(props) {
     return (
       <div className="Forecast">
         <div className="row">
-          <div className="col-2 text-center">
-            <ForecastDay forecastData = {forecastData}/>
-          </div>
+          {forecastData.map(function (dailyForecast, index) {
+            if (index < 6) {
+              return (
+                <div className="col-2 text-center" key={index}>
+                  <ForecastDay forecastData={dailyForecast} />
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
     );
