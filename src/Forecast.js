@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ForecastDay from "./ForecastDay.js";
 
 import "./Forecast.css";
 export default function Forecast(props) {
-  const [ready, setReady] = useState("false");
-  const [forecastData, setForecastData] = useState("false");
+  const [ready, setReady] = useState(false);
+  const [forecastData, setForecastData] = useState(null);
+
+  useEffect(() => {
+    setReady(false);
+  }, [props.coordinates]);
+
   function showForecastWeather(response) {
     setForecastData(response.data.daily);
-    setReady("true");
+    setReady(true);
   }
 
-  if (ready === "true") {
+  if (ready === true) {
     return (
       <div className="Forecast">
         <div className="row">
@@ -23,6 +28,7 @@ export default function Forecast(props) {
                 </div>
               );
             }
+            return null
           })}
         </div>
       </div>

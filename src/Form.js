@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -10,6 +10,24 @@ export default function Form(props) {
   const [city, setCity] = useState(props.defaultCity);
   const [weather, setWeather] = useState("");
   const [loaded, setLoaded] = useState(false);
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [locationCity, setLocationCity] = useState(false);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.latitude);
+    });
+    let apiKey = "1fd8093fa5ff12d796d7de756cc9d6b9";
+    let units = "metric";
+    let currentApiEndPoint = "https://api.openweathermap.org/data/2.5/weather?";
+    let currentLocationApiUrl = `${currentApiEndPoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+    axios.get(currentLocationApiUrl).then((response) => {
+      setCity(response.data.name);
+      setLocationCity(true);
+    });
+  }, []);
 
   function handleResponse(response) {
     setLoaded(true);
@@ -40,6 +58,11 @@ export default function Form(props) {
     setCity(event.target.value);
   }
 
+  function showTempForCurrentLocation(response) {
+    let currentLocationName = response.data.name;
+    setCity(currentLocationName);
+  }
+
   let form = (
     <form className="mb-3 mt-0" onSubmit={handleSubmit}>
       <input
@@ -49,7 +72,12 @@ export default function Form(props) {
         onChange={updateCity}
       />
       <input type="submit" value="search" className="btn btn-light ms-2" />
-      <button className="ms-2 btn btn-warning">Current Location</button>
+      <button
+        className="ms-2 btn btn-warning"
+        onClick={() => setLocationCity(true)}
+      >
+        Current Location
+      </button>
     </form>
   );
 
@@ -64,12 +92,12 @@ export default function Form(props) {
     search();
     return (
       <div>
-      <ClipLoader
-        color="#36d7b7"
-        loading={true}
-        size={150}
-        aria-label="FadeLoader"
-      />
+        <ClipLoader
+          color="#36d7b7"
+          loading={true}
+          size={150}
+          aria-label="FadeLoader"
+        />
       </div>
     );
   }

@@ -5,7 +5,6 @@ import Icon from "./Icon";
 import Unit from "./Unit";
 
 export default function WeatherInfo(props) { 
-  console.log(props.data.coordinates);
   return (
     <div>
       <h2 className="mb-0"> {props.data.city}</h2>
