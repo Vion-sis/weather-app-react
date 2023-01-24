@@ -27,7 +27,7 @@ export default function Form(props) {
       setCity(response.data.name);
       setLocationCity(true);
     });
-  }, []);
+  }, [locationCity, latitude, longitude]);
 
   function handleResponse(response) {
     setLoaded(true);
@@ -56,11 +56,6 @@ export default function Form(props) {
   function updateCity(event) {
     event.preventDefault();
     setCity(event.target.value);
-  }
-
-  function showTempForCurrentLocation(response) {
-    let currentLocationName = response.data.name;
-    setCity(currentLocationName);
   }
 
   let form = (
